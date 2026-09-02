@@ -1,0 +1,29 @@
+name: Technical writing review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - "**/*.md"
+      - "**/*.mdx"
+
+permissions:
+  contents: read
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      # 이 Action 저장소의 PR 코드는 신뢰할 수 없으므로 자체 리뷰에서는
+      # 시크릿과 쓰기 토큰을 전달하지 않고 결정적 검사만 실행합니다.
+      - uses: ./
+        with:
+          base-sha: ${{ github.event.pull_request.base.sha }}
+          head-sha: ${{ github.event.pull_request.head.sha }}
+          ai-review: "false"
+          comment: "false"
+          fail-on-required: "false"

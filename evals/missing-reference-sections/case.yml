@@ -1,0 +1,2 @@
+name: 필수 섹션이 부족한 참조 문서
+expected_rule_ids: [TW-TYPE-001, TW-TYPE-001, TW-TYPE-001, TW-TYPE-001]

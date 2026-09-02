@@ -1,0 +1,140 @@
+version: 1.0.0
+
+limits:
+  max_document_bytes: 524288
+  max_ai_characters: 120000
+  max_findings: 50
+
+structure:
+  single_h1:
+    id: TW-ARCH-001
+    severity: required
+    enabled: true
+  overview:
+    id: TW-ARCH-002
+    severity: required
+    enabled: true
+  heading_length:
+    id: TW-ARCH-003
+    severity: recommended
+    enabled: true
+    max: 30
+  heading_punctuation:
+    id: TW-ARCH-004
+    severity: recommended
+    enabled: true
+  heading_depth:
+    id: TW-ARCH-005
+    severity: recommended
+    enabled: true
+    min: 4
+  heading_order:
+    id: TW-ARCH-006
+    severity: required
+    enabled: true
+
+document_type:
+  require_explicit_type: false
+  rule:
+    id: TW-TYPE-001
+    severity: required
+  types:
+    learning:
+      labels: [learning, tutorial, 학습, 튜토리얼]
+      required_sections:
+        - name: 목표
+          aliases: [목표, 학습 목표]
+        - name: 사전 요구사항
+          aliases: [사전 요구사항, 사전 요구 사항, 준비 사항, 전제 조건]
+        - name: 단계별 가이드
+          aliases: [단계별 가이드, 진행 방법, 실습]
+        - name: 최종 결과 확인
+          aliases: [최종 결과 확인, 결과 확인, 검증]
+    problem-solving:
+      labels: [problem-solving, how-to, troubleshooting, 문제 해결, 트러블슈팅]
+      required_sections:
+        - name: 문제 정의
+          aliases: [문제 정의, 문제, 증상]
+        - name: 사전 요구사항
+          aliases: [사전 요구사항, 사전 요구 사항, 준비 사항, 전제 조건]
+        - name: 해결 방법
+          aliases: [해결 방법, 해결]
+        - name: 문제 해결 후 확인 방법
+          aliases: [문제 해결 후 확인 방법, 결과 확인, 검증]
+    reference:
+      labels: [reference, 참조, 레퍼런스]
+      required_sections:
+        - name: 개요
+          aliases: [개요]
+        - name: 속성 및 옵션
+          aliases: [속성 및 옵션, 옵션, 매개변수]
+        - name: 시그니처
+          aliases: [시그니처, 구문]
+        - name: 반환 값
+          aliases: [반환 값, 반환값, 응답]
+        - name: 사용 예제
+          aliases: [사용 예제, 예제]
+    explanation:
+      labels: [explanation, 설명]
+      required_sections:
+        - name: 개념 소개
+          aliases: [개념 소개, 개요]
+        - name: 등장 배경
+          aliases: [등장 배경, 배경]
+        - name: 활용
+          aliases: [활용, 사용 사례]
+
+metadata:
+  rule:
+    id: TW-META-001
+    severity: required
+  required: []
+
+terminology:
+  rule:
+    id: TW-TERM-001
+    severity: recommended
+  terms: []
+
+sentence:
+  meta_discourse:
+    id: TW-SENT-001
+    severity: recommended
+    phrases: [아시다시피, 앞서 설명했듯이, 사실은, 다음으로]
+  nominalization:
+    id: TW-SENT-002
+    severity: recommended
+    replacements:
+      작업을 수행합니다: 작업합니다
+      설정을 진행합니다: 설정합니다
+      삭제를 진행합니다: 삭제합니다
+
+semantic_rules:
+  - id: TW-CONTEXT-001
+    severity: confirmation
+    description: 문서의 목적과 독자가 얻을 결과가 분명한지 확인합니다.
+  - id: TW-CONTEXT-002
+    severity: confirmation
+    description: 대상 독자와 필요한 사전 지식이 충분히 드러나는지 확인합니다.
+  - id: TW-CONTEXT-003
+    severity: confirmation
+    description: 문서가 다루는 범위와 의도적으로 제외한 범위가 오해 없이 전달되는지 확인합니다.
+  - id: TW-ACCURACY-001
+    severity: confirmation
+    description: 명령어, 코드, 버전, 정책처럼 구현에 영향을 주는 주장이 저장소 근거와 일치하는지 확인합니다.
+  - id: TW-TYPE-002
+    severity: recommended
+    description: 문서 구조와 내용이 독자의 목적에 맞는 한 가지 주된 문서 유형에 집중하는지 확인합니다.
+  - id: TW-SENT-101
+    severity: recommended
+    description: 행동 주체가 분명하고 능동형 문장인지 확인합니다.
+  - id: TW-SENT-102
+    severity: recommended
+    description: 한 문장에 여러 생각이 섞이지 않고 불필요한 표현이 없는지 확인합니다.
+  - id: TW-SENT-103
+    severity: recommended
+    description: 조건, 수치, 대상, 동작이 모호하지 않고 구체적인지 확인합니다.
+
+ai:
+  prompt_version: 1.0.0
+  min_confidence: 0.75

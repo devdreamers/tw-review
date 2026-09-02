@@ -1,0 +1,2 @@
+name: 불필요한 메타 담화와 명사형 표현
+expected_rule_ids: [TW-SENT-001, TW-SENT-002]

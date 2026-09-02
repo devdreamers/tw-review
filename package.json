@@ -1,0 +1,29 @@
+{
+  "name": "technical-writing-review",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "bundle": "ncc build src/action.ts -o dist --minify --source-map --license licenses.txt",
+    "test": "npm run build && node --test lib/test/*.test.js",
+    "eval": "npm run build && node lib/src/eval.js",
+    "review": "npm run build && node lib/src/cli.js",
+    "all": "npm run test && npm run eval && npm run bundle"
+  },
+  "dependencies": {
+    "@actions/core": "3.0.1",
+    "@actions/github": "9.1.1",
+    "@anthropic-ai/sdk": "0.123.0",
+    "yaml": "2.9.0",
+    "zod": "4.5.4"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@vercel/ncc": "0.45.0",
+    "typescript": "5.9.3"
+  }
+}

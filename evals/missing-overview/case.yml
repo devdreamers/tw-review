@@ -1,0 +1,2 @@
+name: 제목 아래 개요가 없는 문서
+expected_rule_ids: [TW-ARCH-002]

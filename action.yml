@@ -1,0 +1,60 @@
+name: Technical Writing Review
+description: 회사 기술 문서 표준으로 Markdown PR을 결정적 규칙과 AI 의미 검사로 리뷰합니다.
+author: technical-writing-review
+
+inputs:
+  github-token:
+    description: PR 요약 코멘트를 작성할 GitHub token입니다. 생략하면 코멘트를 작성하지 않습니다.
+    required: false
+  anthropic-api-key:
+    description: AI 의미 리뷰에 사용할 Anthropic API key입니다. 생략하면 결정적 검사만 실행합니다.
+    required: false
+  model:
+    description: AI 의미 리뷰에 사용할 Claude 모델입니다.
+    required: false
+    default: claude-sonnet-5
+  standard-path:
+    description: 호출 저장소 기준 사용자 표준 YAML 경로입니다. PR base revision의 파일을 사용하며, 생략하면 이 Action의 기본 표준을 사용합니다.
+    required: false
+  base-sha:
+    description: 비교 기준 Git SHA입니다. pull_request 이벤트에서는 자동으로 결정합니다.
+    required: false
+  head-sha:
+    description: 검토할 Git SHA입니다. pull_request 이벤트에서는 자동으로 결정합니다.
+    required: false
+  fail-on-required:
+    description: 결정적 검사에서 필수 위반을 찾으면 Action을 실패시킵니다.
+    required: false
+    default: "false"
+  comment:
+    description: PR에 갱신 가능한 요약 코멘트를 작성합니다.
+    required: false
+    default: "true"
+  ai-review:
+    description: API key가 있을 때 AI 의미 리뷰를 실행합니다.
+    required: false
+    default: "true"
+  max-ai-findings:
+    description: AI가 한 PR에 반환할 최대 리뷰 항목 수입니다.
+    required: false
+    default: "5"
+
+outputs:
+  status:
+    description: pass, warning, fail 중 하나입니다.
+  required-count:
+    description: 결정적 필수 위반 수입니다.
+  recommended-count:
+    description: 권장 개선 수입니다.
+  confirmation-count:
+    description: 사람 확인이 필요한 항목 수입니다.
+  standard-version:
+    description: 적용한 문서 표준 버전입니다.
+
+runs:
+  using: node24
+  main: dist/index.js
+
+branding:
+  icon: book-open
+  color: blue
